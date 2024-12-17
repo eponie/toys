@@ -32,7 +32,7 @@
             const rotationIntervalRef = React.useRef(null);
 
             React.useEffect(() => {
-                const framesPerSecond = 5;
+                const framesPerSecond = 10;
                 if (isRotating) {
                     const interval = 1000 / framesPerSecond;
                     rotationIntervalRef.current = setInterval(() => {
