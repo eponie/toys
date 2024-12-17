@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>心靈捕手</title>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const MotivationCards = () => {
+            const quotes = [
+                "加油、深呼吸！",
+                "放輕鬆，不用去想這些事，只要想如何跟打者對決，專注在這顆球上就好。",
+                "一定要進攻好球喔。",
+                "假設你今天狀況有80%，就把80%表現出來，不要想說為了丟好球而怎麼樣的。",
+                "大膽去做，這樣才能投得比較好，就算失敗也會比較好睡。",
+                "放輕鬆，不用去想狀況怎麼樣，每個人狀況本來就不一樣，不可能每天都好。",
+                "沒事，要相信自己！",
+                "相信自己，好事自然會發生。",
+                "你的能力很好，對方打不好不要怕。",
+                "你很棒，大膽丟每一球。"
+            ];
+
+            const [currentQuoteIndex, setCurrentQuoteIndex] = React.useState(0);
+            const [isRotating, setIsRotating] = React.useState(true);
+            const rotationIntervalRef = React.useRef(null);
+
+            React.useEffect(() => {
+                const framesPerSecond = 10;
+                if (isRotating) {
+                    const interval = 1000 / framesPerSecond;
+                    rotationIntervalRef.current = setInterval(() => {
+                        setCurrentQuoteIndex((prevIndex) => 
+                            (prevIndex + 1) % quotes.length
+                        );
+                    }, interval);
+                } else {
+                    clearInterval(rotationIntervalRef.current);
+                }
+
+                return () => {
+                    clearInterval(rotationIntervalRef.current);
+                };
+            }, [isRotating]);
+
+            const handleCardClick = () => {
+                setIsRotating(!isRotating);
+            };
+
+            return (
+                <div className="relative min-h-screen bg-gray-100">
+                    <div className="fixed top-0 left-0 right-0 z-10 bg-white shadow-md">
+                        <h1 className="text-4xl font-bold text-gray-800 text-center py-4">
+                            心靈捕手
+                        </h1>
+                    </div>
+                    <div className="flex justify-center items-center min-h-screen px-4">
+                        <div 
+                            onClick={handleCardClick} 
+                            className="w-full max-w-md cursor-pointer transition-all duration-300 hover:shadow-xl bg-white rounded-lg border shadow-sm"
+                        >
+                            <div className="flex justify-center items-center p-8 text-center">
+                                <p className="text-2xl font-bold text-gray-800">
+                                    {quotes[currentQuoteIndex]}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(
+            <React.StrictMode>
+                <MotivationCards />
+            </React.StrictMode>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+</html>
