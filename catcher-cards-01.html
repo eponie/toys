@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>心靈捕手</title>
     <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
@@ -31,7 +32,7 @@
             const rotationIntervalRef = React.useRef(null);
 
             React.useEffect(() => {
-                const framesPerSecond = 10;
+                const framesPerSecond = 5;
                 if (isRotating) {
                     const interval = 1000 / framesPerSecond;
                     rotationIntervalRef.current = setInterval(() => {
@@ -55,17 +56,27 @@
             return (
                 <div className="relative min-h-screen bg-gray-100">
                     <div className="fixed top-0 left-0 right-0 z-10 bg-white shadow-md">
-                        <h1 className="text-4xl font-bold text-gray-800 text-center py-4">
+                        <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 text-center py-4">
                             心靈捕手
                         </h1>
                     </div>
                     <div className="flex justify-center items-center min-h-screen px-4">
                         <div 
                             onClick={handleCardClick} 
-                            className="w-full max-w-md cursor-pointer transition-all duration-300 hover:shadow-xl bg-white rounded-lg border shadow-sm"
+                            className="w-full sm:w-full md:w-4/5 lg:w-3/5 
+                                       min-w-[80%] 
+                                       cursor-pointer 
+                                       transition-all 
+                                       duration-300 
+                                       hover:shadow-xl 
+                                       bg-white 
+                                       rounded-lg 
+                                       border 
+                                       shadow-sm 
+                                       p-6"
                         >
-                            <div className="flex justify-center items-center p-8 text-center">
-                                <p className="text-2xl font-bold text-gray-800">
+                            <div className="flex justify-center items-center text-center">
+                                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 leading-relaxed">
                                     {quotes[currentQuoteIndex]}
                                 </p>
                             </div>
